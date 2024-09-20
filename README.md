@@ -181,3 +181,87 @@ Ready to supercharge your Nuxt3 development? Here's how you can get started with
 7. 📄 **Use Magic Resume**: Need a stellar developer resume? Check out [Magic Resume](https://magic-resume.ai), the AI-powered resume builder that NuxtGain powers!
 
 Join us in making Nuxt3 development faster, easier, and more enjoyable!
+
+
+
+POr si no funciona instalar docker-desktop
+
+Posible error
+El error permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock indica que el usuario actual no tiene los permisos necesarios para interactuar con el daemon de Docker. Esto es bastante común en sistemas que requieren que el usuario esté en el grupo docker para ejecutar comandos sin sudo.
+
+Soluciones para el problema de permisos:
+Ejecutar con sudo:
+
+La forma más rápida de solucionar esto temporalmente es ejecutar el comando con sudo. Esto te dará acceso a Docker con privilegios elevados:
+
+bash
+Copiar código
+sudo npm run supabase:start
+Esto te pedirá la contraseña de superusuario y debería resolver el problema de "permission denied" temporalmente.
+
+Agregar tu usuario al grupo docker:
+
+Para que no tengas que usar sudo cada vez que quieras ejecutar comandos de Docker, puedes agregar tu usuario al grupo docker. Esto te permitirá ejecutar comandos de Docker sin permisos de superusuario:
+
+a. Agregar tu usuario al grupo docker:
+
+bash
+Copiar código
+sudo usermod -aG docker $USER
+Esto agrega tu usuario al grupo docker, que tiene permisos para interactuar con el daemon de Docker.
+
+b. Cierra sesión y vuelve a iniciar sesión:
+
+Después de ejecutar el comando anterior, deberás cerrar tu sesión y volver a iniciarla para que los cambios surtan efecto. Alternativamente, puedes ejecutar:
+
+bash
+Copiar código
+newgrp docker
+Esto actualizará el grupo activo de tu sesión sin necesidad de reiniciar.
+
+Verificar que Docker esté en ejecución:
+
+Asegúrate de que Docker esté en ejecución, ya que el daemon debe estar activo para que puedas interactuar con él. Puedes verificarlo con este comando:
+
+bash
+Copiar código
+sudo systemctl start docker
+O en distribuciones más antiguas de Linux que no usen systemd:
+
+bash
+Copiar código
+sudo service docker start
+Verificar los permisos del socket de Docker:
+
+Asegúrate de que el socket de Docker tenga los permisos correctos. Ejecuta el siguiente comando para ver los permisos actuales:
+
+bash
+Copiar código
+ls -l /var/run/docker.sock
+El resultado debería verse algo así:
+
+bash
+Copiar código
+srw-rw---- 1 root docker 0 Sep 19 12:34 /var/run/docker.sock
+Esto significa que el propietario es root, pero el grupo docker tiene permisos de lectura y escritura. Si no ves el grupo docker, puedes cambiar los permisos con estos comandos:
+
+bash
+Copiar código
+sudo chown root:docker /var/run/docker.sock
+sudo chmod 660 /var/run/docker.sock
+Instalar Docker Desktop:
+
+El error también menciona que Docker Desktop es un prerrequisito para el desarrollo local. Si no tienes Docker Desktop instalado, sigue la guía oficial para instalarlo en tu sistema. Aquí está el enlace oficial:
+
+Guía oficial de Docker Desktop
+
+Resumen:
+Ejecuta npm run supabase:start con sudo para una solución rápida.
+Agrega tu usuario al grupo docker para evitar tener que usar sudo en el futuro:
+bash
+Copiar código
+sudo usermod -aG docker $USER
+Cierra y vuelve a iniciar sesión o usa newgrp docker para aplicar los cambios.
+Asegúrate de que Docker esté corriendo correctamente.
+Verifica que Docker Desktop esté instalado si es necesario.
+Con estos pasos, deberías poder solucionar el problema de permisos y ejecutar Docker y Supabase correctamente.

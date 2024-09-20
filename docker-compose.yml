@@ -1,0 +1,15 @@
+version: '3.8'  # Versión de docker-compose
+
+services:
+  app:  # Nombre del servicio
+    build:
+      context: .  # El directorio donde está el Dockerfile
+      dockerfile: Dockerfile  # Opcional si el archivo se llama "Dockerfile"
+    ports:
+      - "3000:3000"  # Mapeo del puerto, desde el host al contenedor
+    volumes:
+      - .:/app  # Monte el directorio actual al contenedor (opcional para desarrollo)
+    environment:
+      NODE_ENV: production  # Variables de entorno, si las necesitas
+    command: ["node", ".output/server/index.mjs"]  # Comando de inicio
+

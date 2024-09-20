@@ -55,8 +55,8 @@ export default defineNuxtConfig({
   // Define runtime config and environment variables
   runtimeConfig: {
     public: {
-      supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL ?? '',
-      supabaseKey: process.env.NUXT_SUPABASE_KEY ?? '',
+      supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL ?? 'http://127.0.0.1:54321',
+      supabaseKey: process.env.NUXT_SUPABASE_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkZWJhcm91bXh1bHF1cW5wa3hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY3OTQ5OTEsImV4cCI6MjA0MjM3MDk5MX0.oX6oy_H3haLpq_CL1VRMiPsStAjJKhkkKIVbLQDi3Mk',
       posthogPublicKey: process.env.NUXT_PUBLIC_POSTHOG_PUBLIC_KEY ?? '',
       posthogHost: process.env.NUXT_PUBLIC_POSTHOG_HOST ?? '',
     },
